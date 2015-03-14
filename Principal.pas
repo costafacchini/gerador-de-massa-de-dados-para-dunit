@@ -27,7 +27,7 @@ var
 implementation
 
 uses
-  Tabelas;
+  Tabelas, GeradorDeArquivos;
 
 {$R *.dfm}
 
@@ -39,6 +39,7 @@ begin
     conIBO.DatabaseName := '127.0.0.1:' + sdBanco.FileName;
     conIBO.Connect;
     TfrmSelecaoDeTabelas.Executar(conIBO, FListaDeTabelas);
+    TGeradorDeArquivos.Gerar(conIBO, FListaDeTabelas);
   end;
 end;
 
