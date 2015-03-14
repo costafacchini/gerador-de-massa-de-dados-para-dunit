@@ -27,6 +27,9 @@ type
 
 implementation
 
+uses
+  Campos;
+
 {$R *.dfm}
 
 procedure TfrmSelecaoDeTabelas.btnCancelarClick(Sender: TObject);
@@ -72,6 +75,8 @@ begin
     Campos := TStringList.Create;
     try
       Campos.Delimiter := ',';
+      if TfrmSelecaoDeCampos.Executar(FConexao, qryTabelas.BufferFieldByName('Tabela').AsString, Campos) then
+        FListaDeTabelasSelecionadas.Add(qryTabelas.BufferFieldByName('Tabela').AsString, Campos.DelimitedText);
     finally
       Campos.Free;
     end;
