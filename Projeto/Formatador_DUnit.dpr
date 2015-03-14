@@ -1,9 +1,11 @@
-program GeradorDeMassaDeDadosParaDUnit;
+program Formatador_DUnit;
 
 uses
   Forms,
   Principal in '..\Principal.pas' {frmPrincipal},
-  Tabelas in '..\Tabelas.pas' {frmSelecaoDeTabelas};
+  Tabelas in '..\Tabelas.pas' {frmSelecaoDeTabelas},
+  Campos in '..\Campos.pas' {frmSelecaoDeCampos},
+  GeradorDeArquivos in '..\GeradorDeArquivos.pas';
 
 {$R *.res}
 

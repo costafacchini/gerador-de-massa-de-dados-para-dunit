@@ -1,8 +1,8 @@
 ﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
-			<ProjectGuid>{9579F138-A8DD-4D9C-9E31-9CF47AE43CF7}</ProjectGuid>
-			<MainSource>GeradorDeMassaDeDadosParaDUnit.dpr</MainSource>
+			<ProjectGuid>{3A022716-2F89-46CF-9CCD-066DC383CBA3}</ProjectGuid>
 			<ProjectVersion>12.2</ProjectVersion>
+			<MainSource>Formatador_DUnit.dpr</MainSource>
 			<Base>True</Base>
 			<Config Condition="'$(Config)'==''">Debug</Config>
 			<Platform>Win32</Platform>
@@ -28,11 +28,6 @@
 			<DCC_DcuOutput>.\$(Config)\$(Platform)</DCC_DcuOutput>
 			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
 			<DCC_ExeOutput>.\$(Config)\$(Platform)</DCC_ExeOutput>
-			<DCC_E>false</DCC_E>
-			<DCC_N>false</DCC_N>
-			<DCC_S>false</DCC_S>
-			<DCC_F>false</DCC_F>
-			<DCC_K>false</DCC_K>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
 			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -46,7 +41,7 @@
 			<DCC_DebugInformation>false</DCC_DebugInformation>
 		</PropertyGroup>
 		<ItemGroup>
-			<DelphiCompile Include="GeradorDeMassaDeDadosParaDUnit.dpr">
+			<DelphiCompile Include="Formatador_DUnit.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
 			<DCCReference Include="..\Principal.pas">
@@ -55,6 +50,10 @@
 			<DCCReference Include="..\Tabelas.pas">
 				<Form>frmSelecaoDeTabelas</Form>
 			</DCCReference>
+			<DCCReference Include="..\Campos.pas">
+				<Form>frmSelecaoDeCampos</Form>
+			</DCCReference>
+			<DCCReference Include="..\GeradorDeArquivos.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
@@ -101,8 +100,12 @@
 						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
+					<Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dcloffice2k150.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dclofficexp150.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+					</Excluded_Packages>
 					<Source>
-						<Source Name="MainSource">GeradorDeMassaDeDadosParaDUnit.dpr</Source>
+						<Source Name="MainSource">Formatador_DUnit.dpr</Source>
 					</Source>
 				</Delphi.Personality>
 				<Platforms>

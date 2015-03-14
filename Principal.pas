@@ -26,6 +26,9 @@ var
 
 implementation
 
+uses
+  Tabelas;
+
 {$R *.dfm}
 
 procedure TfrmPrincipal.btnGerarClick(Sender: TObject);
@@ -35,6 +38,7 @@ begin
     conIBO.Disconnect;
     conIBO.DatabaseName := '127.0.0.1:' + sdBanco.FileName;
     conIBO.Connect;
+    TfrmSelecaoDeTabelas.Executar(conIBO, FListaDeTabelas);
   end;
 end;
 
