@@ -2,7 +2,7 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'Formatador de Dados para os casos de teste do DUnit'
-  ClientHeight = 101
+  ClientHeight = 123
   ClientWidth = 400
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,7 +16,7 @@ object frmPrincipal: TfrmPrincipal
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
-  object RadioGroup1: TRadioGroup
+  object rgrFormatoDeSaida: TRadioGroup
     Left = 8
     Top = 8
     Width = 385
@@ -41,6 +41,20 @@ object frmPrincipal: TfrmPrincipal
     Caption = 'Gerar'
     TabOrder = 1
     OnClick = btnGerarClick
+  end
+  object barRodape: TStatusBar
+    Left = 0
+    Top = 104
+    Width = 400
+    Height = 19
+    Panels = <
+      item
+        Text = 'Selecionar Tabelas'
+        Width = 50
+      end>
+    ExplicitLeft = 264
+    ExplicitTop = 112
+    ExplicitWidth = 0
   end
   object sdBanco: TOpenDialog
     DefaultExt = '*.fdb'

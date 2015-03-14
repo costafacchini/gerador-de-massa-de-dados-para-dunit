@@ -16,6 +16,7 @@ type
     btnTodos: TButton;
     Label1: TLabel;
     lblTabela: TLabel;
+    btnObrigatorios: TButton;
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure grdTabelasCellClick(Sender: TObject; ACol, ARow: Integer; AButton: TMouseButton; AShift: TShiftState);
@@ -24,6 +25,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btnTodosClick(Sender: TObject);
+    procedure btnObrigatoriosClick(Sender: TObject);
   private
     FTabela: string;
     FListaDeCamposSelecionados: TDictionary<string, string>;
@@ -38,6 +40,24 @@ implementation
 procedure TfrmSelecaoDeCampos.btnCancelarClick(Sender: TObject);
 begin
   ModalResult := mrCancel;
+end;
+
+procedure TfrmSelecaoDeCampos.btnObrigatoriosClick(Sender: TObject);
+begin
+  qryCampos.DisableControls;
+  try
+    qryCampos.First;
+    while not qryCampos.Eof do
+    begin
+      if qryCampos.FieldByName('Obrigatorio').AsString = 'S' then
+        FListaDeCamposSelecionados.AddOrSetValue(qryCampos.FieldByName('Campo').AsString, qryCampos.FieldByName('Campo').AsString);
+
+      qryCampos.Next;
+    end;
+  finally
+    qryCampos.EnableControls;
+  end;
+  qryCampos.Refresh;
 end;
 
 procedure TfrmSelecaoDeCampos.btnOKClick(Sender: TObject);

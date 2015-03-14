@@ -3,7 +3,7 @@ object frmSelecaoDeCampos: TfrmSelecaoDeCampos
   Top = 0
   Caption = 'frmSelecaoDeCampos'
   ClientHeight = 678
-  ClientWidth = 295
+  ClientWidth = 401
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -39,18 +39,19 @@ object frmSelecaoDeCampos: TfrmSelecaoDeCampos
   object grdTabelas: TIB_Grid
     Left = 8
     Top = 28
-    Width = 281
+    Width = 385
     Height = 612
     CustomGlyphsSupplied = []
     DataSource = dtsCampos
     TabOrder = 0
     GridLinks.Strings = (
-      'CAMPO=WIDTH=\2\4\8')
+      'CAMPO=WIDTH=\2\4\8'
+      'Obrigatorio=20')
     OnCellClick = grdTabelasCellClick
     OnGetCellProps = grdTabelasGetCellProps
   end
   object btnOK: TButton
-    Left = 133
+    Left = 237
     Top = 646
     Width = 75
     Height = 25
@@ -59,7 +60,7 @@ object frmSelecaoDeCampos: TfrmSelecaoDeCampos
     OnClick = btnOKClick
   end
   object btnCancelar: TButton
-    Left = 214
+    Left = 318
     Top = 646
     Width = 75
     Height = 25
@@ -76,10 +77,21 @@ object frmSelecaoDeCampos: TfrmSelecaoDeCampos
     TabOrder = 3
     OnClick = btnTodosClick
   end
+  object btnObrigatorios: TButton
+    Left = 89
+    Top = 646
+    Width = 75
+    Height = 25
+    Caption = 'Obrigat'#243'rios'
+    TabOrder = 4
+    OnClick = btnObrigatoriosClick
+  end
   object qryCampos: TIB_Query
     DatabaseName = 
       '127.0.0.1:C:\Asseinfo\Clientes\desenvolvimento\desenvolvimento.f' +
       'db'
+    FieldsDisplayLabel.Strings = (
+      'Obrigatorio='#39'Obrigat'#243'rio'#39)
     IB_Connection = frmPrincipal.conIBO
     SQL.Strings = (
       'Select'
@@ -102,7 +114,13 @@ object frmSelecaoDeCampos: TfrmSelecaoDeCampos
       '         Upper(C.Rdb$Relation_Name) = Upper(A.Rdb$Relation_Name)'
       '         and Upper( S.RDB$FIELD_NAME) = Upper(A.Rdb$Field_Name)'
       '         and Upper(C.Rdb$Constraint_Type) = '#39'PRIMARY KEY'#39
-      '    ) Chave'
+      '    ) Chave,'
+      '    ('
+      '      case A.Rdb$Null_Flag'
+      '        when 1 then '#39'S'#39
+      '        else '#39'N'#39
+      '      end'
+      '    ) Obrigatorio'
       'From'
       '    Rdb$Relation_Fields A'
       '    Join'
