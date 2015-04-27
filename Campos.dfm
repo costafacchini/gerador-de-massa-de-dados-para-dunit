@@ -142,6 +142,8 @@ object frmSelecaoDeCampos: TfrmSelecaoDeCampos
         ' null) ) /* Ignorar campo computados */'
       '    and A.Rdb$Relation_Name = :TABELA'
       'Order By'
+      '    4 desc,'
+      '    5 desc,'
       '    1,'
       '    A.Rdb$Field_Position')
     KeyLinksAutoDefine = False

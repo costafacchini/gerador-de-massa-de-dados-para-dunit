@@ -32,14 +32,13 @@ begin
   try
     for CodigoKey in listaDeTabelas.Keys do
     begin
-      GeraTabela(conexao, Arquivo, CodigoKey, listaDeTabelas.Items[CodigoKey]);
+      GeraTabela(conexao, Arquivo, AnsiLowerCase(CodigoKey), listaDeTabelas.Items[CodigoKey]);
     end;
     SD := TSaveDialog.Create(nil);
     try
       SD.Filter := 'Arquivos de DUnit (*.sql)|*.sql';
       SD.FilterIndex := 0;
       SD.DefaultExt := '*.zip';
-      SD.InitialDir := 'C:\';
       SD.FileName := 'InicializaBancoDeDados.sql';
       if SD.Execute then
         Arquivo.SaveToFile(SD.FileName);
@@ -102,15 +101,29 @@ begin
   begin
     if qry.Fields[i].FieldName <> 'DB_KEY' then
     begin
-      if qry.Fields[i].IsDateTime then
-        ValorDoField := FormatDateTime('dd.mm.yyyy', qry.FieldByName(qry.Fields[i].FieldName).AsDate)
-      else
+      if qry.Fields[i].IsNumeric then
+      begin
         ValorDoField := qry.FieldByName(qry.Fields[i].FieldName).AsString;
+        ValorDoField := StringReplace(ValorDoField, ',', '.', [rfReplaceAll])
+      end
+      else
+      begin
+        if qry.Fields[i].IsDateTime then
+        begin
+          if qry.Fields[i].IsDateOnly then
+            ValorDoField := FormatDateTime('dd.mm.yyyy', qry.FieldByName(qry.Fields[i].FieldName).AsDate)
+          else
+            ValorDoField := FormatDateTime('dd.mm.yyyy HH:MM:ss', qry.FieldByName(qry.Fields[i].FieldName).AsDateTime);
+        end
+        else
+          ValorDoField := qry.FieldByName(qry.Fields[i].FieldName).AsString;
 
-      ValorDoField := QuotedStr(ValorDoField);
+        ValorDoField := QuotedStr(ValorDoField);
+      end;
 
       Tamanho := GetTamanhoDoCampo(qry.Fields[i].FieldName, ValorDoField);
       LinhaCabecalho := LinhaCabecalho + padL(qry.Fields[i].FieldName, Tamanho, ' ') + ', ';
+      LinhaCabecalho := AnsiLowerCase(LinhaCabecalho);
       LinhaValores := LinhaValores + padL(ValorDoField, Tamanho, ' ') + ', ';
     end;
   end;
